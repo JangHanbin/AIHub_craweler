@@ -48,10 +48,11 @@ def get_file(filename, url, cookies):
     }
 
 
-    res = requests.get(url, headers=headers, cookies=cookies)
+    res = requests.get(url, headers=headers, cookies=cookies, stream=True)
 
     with open('{0}'.format(filename), 'wb') as f:
-        f.write(res.content)
+        for chunk in res.iter_content(chunk_size=8192):
+            f.write(chunk)
 
 if __name__ =='__main__':
     parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
