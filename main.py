@@ -4,9 +4,6 @@ import logging
 import argparse
 
 
-
-
-
 pages = 12
 def login(_id, pw):
     options = webdriver.ChromeOptions()
@@ -80,6 +77,10 @@ if __name__ =='__main__':
     pw = args.password
 
     urls , cookies = login(_id, pw)
+    _from = int(input('Enter index of start (0 ~ {0}) : '.format(len(urls))))
+    to = int(input('Enter index of end (0 ~ {0}) : '.format(len(urls))))
+
+    urls = urls[_from:to+1]
 
     for url in urls:
         logger.info('Downloading {0} from {1}'.format(*url))
